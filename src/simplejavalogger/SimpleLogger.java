@@ -53,7 +53,7 @@ public class SimpleLogger
 	}
 	
 	/// Private members
-	private final static String logFile = "demo_log.txt";
+	private static String logFile = "demo_log.txt";
 	
 	
     private PrintWriter writer;  

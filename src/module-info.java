@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author Malice
+ *
+ */
+module simpleJavaLogger {
+}

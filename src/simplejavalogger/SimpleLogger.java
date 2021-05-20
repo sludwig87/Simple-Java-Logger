@@ -10,7 +10,11 @@ package simplejavalogger;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.*;
+import java.time.format.DateTimeFormatter;
+
+import sun.rmi.log.ReliableLog.LogFile;
+
+import java.time.LocalDateTime;    
 
 /**
  * @author Malice
@@ -22,6 +26,7 @@ public class SimpleLogger
 	/// Singleton Pattern
 	private static SimpleLogger _logger = null;
 	
+	
 	public static synchronized SimpleLogger getInstance()
 	{
 	    if(_logger == null)
@@ -32,10 +37,31 @@ public class SimpleLogger
 	    return _logger;
 	}
 	
+	public static synchronized SimpleLogger getInstance(String nFileName)
+	{
+	    if(_logger == null)
+	    {
+	    	if(nFileName.length() > 0)
+	    	{
+	    		logFile = nFileName;
+	    	}
+	        _logger = new SimpleLogger();
+	    }
+	    else if(logFile != nFileName)
+	    {
+	    	System.out.println("Error In SimpleLogger. Log File Already Specified Elsewhere. Cannot Set");
+	    }
+	    
+	    return _logger;
+	}
 	
 	/// Private members
-	private final String logFile = "demo_log.txt";
+	private final static String logFile = "demo_log.txt";
+	
+	
     private PrintWriter writer;  
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+    
     
     // Private Methods
     private SimpleLogger() 
@@ -75,23 +101,28 @@ public class SimpleLogger
     
     
     
-    public void Error()
+    /// Public Formated Log Messages
+    public void Error(String formatString, Object ...args)
     {
-    	
+    	this.Log(dtf.format(LocalDateTime.now()) + "[Error] - " + formatString, args);
     }
     
-    
-    public void Trace()
+    public void Trace(String formatString, Object ...args)
     {
-    	
+    	this.Log(dtf.format(LocalDateTime.now()) + "[Trace] - " + formatString, args);
     }
     
-    
-    public void Debug()
+    public void Debug(String formatString, Object ...args)
     {
     	
+    	this.Log(dtf.format(LocalDateTime.now()) + "[Debug] - " + formatString, args);
     }
     
+    public void Info(String formatString, Object ...args)
+    {
+    	
+    	this.Log(dtf.format(LocalDateTime.now()) + "[Info] - " + formatString, args);
+    }
     
     
     

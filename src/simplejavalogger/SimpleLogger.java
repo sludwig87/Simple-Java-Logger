@@ -46,7 +46,7 @@ public class SimpleLogger
 	    }
 	    else if(logFile != nFileName)
 	    {
-	    	System.out.println("Error In SimpleLogger. Log File Already Specified Elsewhere. Cannot Set");
+	    	System.out.printf("Error In SimpleLogger. Log File Already Specified Elsewhere. Cannot Set log file to %s", nFileName);
 	    }
 	    
 	    return _logger;
@@ -73,13 +73,13 @@ public class SimpleLogger
         
 	} 
     
-    
-    
     // Public Methods
     public void Log(String formatString, Object ...args)
     {
     	String formatedString = formatString;
     	
+    	// Basic Python replace loop
+    	// TODO: Need to handle the {1}... etc cases
     	for(Object toReplace : args) 
     	{
     		try 
@@ -121,21 +121,4 @@ public class SimpleLogger
     	this.Log(dtf.format(LocalDateTime.now()) + "[Info] - " + formatString, args);
     }
     
-    
-    
-    public void logWithdraw (String account, double amount) 
-    {
-	    writer.println("WITHDRAW (" + account + "): " + amount + "$");
-	}    
-    
-    public void logDeposit (String account, double amount) 
-    {
-	    writer.println("DEPOSIT (" + account + "): " + amount + "$");
-	}   
-    
-    public void logTransfer (String fromAccount, String toAccount, double amount) 
-    {
-	    writer.println("TRANSFER (" + fromAccount + "->" + toAccount + "): " + amount + "$");
-	}
-
 }

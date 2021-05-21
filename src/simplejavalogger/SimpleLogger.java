@@ -88,9 +88,8 @@ public class SimpleLogger
     		}
     		catch(Exception e)
     		{
-    			writer.println("Failed to log message....");
+    			writer.printf("Failed to log message: %s", formatString);
     		}
-    		
     	}
     	
     	writer.println(formatedString);
